@@ -1,0 +1,26 @@
+name: Control Push
+
+on: push
+
+jobs:
+  qa:
+    name: Check tests
+    runs-on: ubuntu-latest  # Remplacé ubuntu-20.04 pour éviter les warnings de retrait
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          pip install pytest flake8
+
+      - name: Run tests
+        run: pytest
+
+      - name: Run flake8
+        uses: py-actions/flake8@v2
